@@ -9,7 +9,7 @@ log.addHandler(NullHandler())
 import socket
 import time
 
-import socketUdp
+from . import socketUdp
 import threading
 
 class socketUdpReal(socketUdp.socketUdp):

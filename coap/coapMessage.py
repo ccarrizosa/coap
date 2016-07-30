@@ -6,10 +6,10 @@ log = logging.getLogger('coapMessage')
 log.setLevel(logging.ERROR)
 log.addHandler(NullHandler())
 
-import coapOption    as o
-import coapUtils     as u
-import coapException as e
-import coapDefines   as d
+from . import coapOption    as o
+from . import coapUtils     as u
+from . import coapException as e
+from . import coapDefines   as d
 
 def sortOptions(options):
     # TODO implement sorting when more options are implemented

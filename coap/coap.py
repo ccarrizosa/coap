@@ -10,16 +10,16 @@ import threading
 import random
 import traceback
 
-import coapTokenizer    as t
-import coapUtils        as u
-import coapMessage      as m
-import coapException    as e
-import coapResource     as r
-import coapDefines      as d
-import coapUri
-import coapTransmitter
-from socketUdpDispatcher import socketUdpDispatcher
-from socketUdpReal       import socketUdpReal
+from . import coapTokenizer    as t
+from . import coapUtils        as u
+from . import coapMessage      as m
+from . import coapException    as e
+from . import coapResource     as r
+from . import coapDefines      as d
+from . import coapUri
+from . import coapTransmitter
+from .socketUdpDispatcher import socketUdpDispatcher
+from .socketUdpReal       import socketUdpReal
 
 class coap(object):
 

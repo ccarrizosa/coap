@@ -6,7 +6,7 @@ log = logging.getLogger('coapResource')
 log.setLevel(logging.ERROR)
 log.addHandler(NullHandler())
 
-import coapException as e
+from . import coapException as e
 
 class coapResource(object):
     
