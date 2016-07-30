@@ -16,3 +16,4 @@ __pycache__
 *.pcap
 test_report.xml
 /*.dblite
+.tox
