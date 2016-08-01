@@ -143,7 +143,7 @@ class coap(object):
                 maxRetransmit= self.maxRetransmit
             )
             key              = (destIp,destPort,token,messageId)
-            assert key not in self.transmitters.keys()
+            assert key not in list(self.transmitters.keys())
             self.transmitters[key] = newTransmitter
 
         return newTransmitter.transmit()
@@ -158,7 +158,7 @@ class coap(object):
             while not found:
                 messageId = random.randint(0x0000,0xffff)
                 alreadyUsed = False
-                for (kIp,kPort,kToken,kMessageId) in self.transmitters.keys():
+                for (kIp,kPort,kToken,kMessageId) in list(self.transmitters.keys()):
                     if destIp==kIp and destPort==kPort and messageId==kMessageId:
                         alreadyUsed = True
                         break
@@ -176,7 +176,7 @@ class coap(object):
             while not found:
                 token = random.randint(0x00,0xff)
                 alreadyUsed = False
-                for (kIp,kPort,kToken,kMessageId) in self.transmitters.keys():
+                for (kIp,kPort,kToken,kMessageId) in list(self.transmitters.keys()):
                     if destIp==kIp and destPort==kPort and token==kToken:
                         alreadyUsed = True
                         break
@@ -186,7 +186,7 @@ class coap(object):
 
     def _cleanupTransmitter(self):
         with self.transmittersLock:
-            for (k,v) in self.transmitters.items():
+            for (k,v) in list(self.transmitters.items()):
                 if not v.isAlive():
                     del self.transmitters[k]
 
@@ -304,7 +304,7 @@ class coap(object):
                 found  = False
                 with self.transmittersLock:
                     self._cleanupTransmitter()
-                    for (k,v) in self.transmitters.items():
+                    for (k,v) in list(self.transmitters.items()):
                         # try matching
                         if (
                                 msgkey[0]==k[0] and
@@ -321,7 +321,7 @@ class coap(object):
                     raise e.coapRcBadRequest(
                         'could not find transmitter corresponding to {0}, transmitters are {1}'.format(
                             msgkey,
-                            ','.join([str(k) for k in self.transmitters.keys()])
+                            ','.join([str(k) for k in list(self.transmitters.keys())])
                         )
                     )
 
