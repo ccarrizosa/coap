@@ -52,7 +52,7 @@ class coapRc(coapException):
 class coapRcFactory(object):
     def __new__(klass,rc):
         coapRcClasses = []
-        for (i,j) in globals().items():
+        for (i,j) in list(globals().items()):
             try:
                 if issubclass(j,coapRc):
                     coapRcClasses.append(j)
