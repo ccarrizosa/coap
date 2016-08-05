@@ -1,3 +1,5 @@
+from builtins import bytes
+
 import logging
 class NullHandler(logging.Handler):
     def emit(self, record):
@@ -51,7 +53,7 @@ class socketUdpReal(socketUdp.socketUdp):
     def sendUdp(self,destIp,destPort,msg):
         
         # convert msg to string
-        msg = ''.join([chr(b) for b in msg])
+        msg = b''.join([bytes([b]) for b in msg])
         
         # send over UDP
         with self.socketLock:
@@ -92,7 +94,13 @@ class socketUdpReal(socketUdp.socketUdp):
                 
                 timestamp = time.time()
                 source    = (conn[0],conn[1])
-                data      = [ord(b) for b in raw]
+                data = []
+                for b in raw:
+                    # For python3 b is going to be a int.
+                    if isinstance(b, int):
+                        data.append(b)
+                    else:
+                        data.append(ord(b))
                 
                 log.debug("got {2} from {1} at {0}".format(timestamp,source,data))
                 
