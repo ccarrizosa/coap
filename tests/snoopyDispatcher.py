@@ -1,3 +1,5 @@
+from builtins import bytes
+
 import logging
 class NullHandler(logging.Handler):
     def emit(self, record):
@@ -157,8 +159,8 @@ class snoopyDispatcher(threading.Thread):
         )
         
         # write to file
-        stringToWrite   = ''.join(
-           [pcapMsgHeader]+[''.join([chr(b) for b in bytesToWrite])]
+        stringToWrite   = b''.join(
+           [pcapMsgHeader]+[b''.join([bytes([b]) for b in bytesToWrite])]
         )
         self.pcapFile.write(stringToWrite)
         self.pcapFile.flush()
